@@ -1,0 +1,95 @@
+# {{ ansible_managed }}
+# Configuration for ntpd
+
+driftfile {{ ntp_driftfile }}
+
+# Specify one or more NTP servers.
+
+# Use servers from the NTP Pool Project. Approved by Ubuntu Technical Board
+# on 2011-02-08 (LP: #104525). See http://www.pool.ntp.org/join.html for
+# more information.
+{% for item in ntp_servers %}
+server {{ item }}
+{% endfor %}
+
+# Use Ubuntu's ntp server as a fallback.
+server ntp.ubuntu.com
+
+# Note that "restrict" applies to both servers and clients, so a configuration
+# that might be intended to block requests from certain clients could also end
+# up blocking replies from your own upstream servers.
+
+# By default, exchange time with everybody, but don't allow configuration.
+{% for item in ntp_restrict %}
+{{ item }}
+{% endfor %}
+
+# Local users may interrogate the ntp server more closely.
+restrict 127.0.0.1
+restrict ::1
+
+{% for item in ntp_broadcast %}
+# Broadcast server
+broadcast {{ item }}
+
+{% endfor %}
+{% if ntp_broadcastclient %}
+# Broadcast client
+broadcastclient
+
+{% endif %}
+{% if ntp_multicastclient is not none %}
+# Multicast Client
+multicastclient {{ ntp_multicastclient }}
+
+{% endif %}
+{% if ntp_manycastserver is not none %}
+# Manycast server
+manycastserver {{ ntp_manycastserver }}
+
+{% endif %}
+{% if ntp_manycastclient is not none %}
+# Manycast client
+manycastclient {{ ntp_manycastclient }}
+
+{% endif %}
+{% if ntp_crypto %}
+# Enable public key cryptography
+crypto
+
+{% endif %}
+{% if ntp_keys is not none %}
+# Key file containing the keys and key identifiers used when operating
+# with symmetric key cryptography
+keys {{ ntp_keys }}
+
+{% endif %}
+{% if ntp_trustedkey is not none %}
+# Specify the key identifiers which are trusted
+trustedkey {{ ntp_trustedkey }}
+
+{% endif %}
+{% if ntp_requestkey is not none %}
+# Specify the key identifier to use with the ntpdc utility
+requestkey {{ ntp_requestkey }}
+
+{% endif %}
+{% if ntp_controlkey is not none %}
+# Specify the key identifier to use with the ntpq utility
+controlkey {{ ntp_controlkey }}
+
+{% endif %}
+{% for item in ntp_statistics %}
+# Enable writing of statistics records
+statistics {{ item }}
+
+{% endfor %}
+# Additional
+{% for item in ntp_filegen %}
+filegen {{ item }}
+
+{% endfor %}
+{% for item in ntp_includefile %}
+includefile {{ item }}
+
+{% endfor %}

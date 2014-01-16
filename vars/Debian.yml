@@ -1,0 +1,7 @@
+---
+# Defines variables for Debian/Ubuntu
+
+ntp_service: 'ntp'
+ntp_config_dir: '/etc'
+ntp_packages:
+  - 'ntp'

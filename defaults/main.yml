@@ -1,0 +1,30 @@
+---
+# The variables file used by NTP playbooks.
+# If not overriden in inventory or as a parameter, this is the value that will be used
+
+ntp_driftfile: '/var/lib/ntp/ntp.drift'
+ntp_servers:
+  - '0.ubuntu.pool.ntp.org'
+  - '1.ubuntu.pool.ntp.org'
+  - '2.ubuntu.pool.ntp.org'
+  - '3.ubuntu.pool.ntp.org'
+ntp_restrict:
+  - 'restrict -4 default kod notrap nomodify nopeer noquery'
+  - 'restrict -6 default kod notrap nomodify nopeer noquery'
+ntp_statistics:
+  - 'loopstats peerstats clockstats'
+ntp_filegen:
+  - 'loopstats file loopstats type day enable'
+  - 'peerstats file peerstats type day enable'
+  - 'clockstats file clockstats type day enable'
+ntp_broadcast: []
+ntp_broadcastclient: false
+ntp_multicastclient: ~
+ntp_manycastserver: ~
+ntp_manycastclient: ~
+ntp_crypto: false
+ntp_keys: ~
+ntp_trustedkey: ~
+ntp_requestkey: ~
+ntp_controlkey: ~
+ntp_includefile: []
