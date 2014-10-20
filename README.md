@@ -1,10 +1,12 @@
 # Network Time Protocol (NTP) Role for Ansible
 
-This role installs the NTP package which is a protocol designed to synchronize the clocks of computers over a network.
+This role installs the NTP package which is a protocol designed to synchronize
+the clocks of computers over a network.
 
 ## Requirements
 
-This role requires [Ansible](http://www.ansibleworks.com/) version 1.4 or higher and the Debian/Ubuntu platform.
+This role requires [Ansible](http://www.ansibleworks.com/) version 1.4 or higher
+and the Debian/Ubuntu platform.
 
 ## Role Variables
 
